@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadratic Solver</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="calculator">
+        <h1>Quadratic Solver</h1>
+        <p class="subtitle">Solve ax² + bx + c = 0 instantly</p>
+
+        <div class="inputs">
+            <input type="number" id="a" placeholder="Coefficient a" oninput="result.textContent=''">
+            <input type="number" id="b" placeholder="Coefficient b" oninput="result.textContent=''">
+            <input type="number" id="c" placeholder="Coefficient c" oninput="result.textContent=''">
+        </div>
+
+        <button onclick="solveQuadratic()">Solve equation</button>
+        <div id="result" aria-live="polite"></div>
+    </div>
+
+    <script>
+    function solveQuadratic() {
+        const a = Number(document.getElementById('a').value);
+        const b = Number(document.getElementById('b').value);
+        const c = Number(document.getElementById('c').value);
+        const result = document.getElementById('result');
+
+        if (a === 0) {
+            result.textContent = 'Coefficient a cannot be zero.';
+            return;
+        }
+
+        const discriminant = b * b - 4 * a * c;
+
+        if (discriminant > 0) {
+            const root1 = ((-b + Math.sqrt(discriminant)) / (2 * a)).toFixed(2);
+            const root2 = ((-b - Math.sqrt(discriminant)) / (2 * a)).toFixed(2);
+            result.textContent = `Two real roots: ${root1} and ${root2}`;
+        } else if (discriminant === 0) {
+            const root = (-b / (2 * a)).toFixed(2);
+            result.textContent = `One real root: ${root}`;
+        } else {
+            result.textContent = 'No real roots.';
+        }
+    }
+    </script>
+</body>
+</html>
