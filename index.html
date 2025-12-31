@@ -12,9 +12,9 @@
         <p class="subtitle">Solve ax² + bx + c = 0 instantly</p>
 
         <div class="inputs">
-            <input type="number" id="a" placeholder="Coefficient a" oninput="result.textContent=''">
-            <input type="number" id="b" placeholder="Coefficient b" oninput="result.textContent=''">
-            <input type="number" id="c" placeholder="Coefficient c" oninput="result.textContent=''">
+            <input type="number" id="a" placeholder="Coefficient a" oninput="clearResult()">
+            <input type="number" id="b" placeholder="Coefficient b" oninput="clearResult()">
+            <input type="number" id="c" placeholder="Coefficient c" oninput="clearResult()">
         </div>
 
         <button onclick="solveQuadratic()">Solve equation</button>
@@ -22,11 +22,28 @@
     </div>
 
     <script>
+    function clearResult() {
+        document.getElementById('result').textContent = '';
+    }
+
     function solveQuadratic() {
-        const a = Number(document.getElementById('a').value);
-        const b = Number(document.getElementById('b').value);
-        const c = Number(document.getElementById('c').value);
+        const aInput = document.getElementById('a').value;
+        const bInput = document.getElementById('b').value;
+        const cInput = document.getElementById('c').value;
+        const a = Number(aInput);
+        const b = Number(bInput);
+        const c = Number(cInput);
         const result = document.getElementById('result');
+
+        if (aInput === '' || bInput === '' || cInput === '') {
+            result.textContent = 'Please fill all coefficients.';
+            return;
+        }
+
+        if (!Number.isFinite(a) || !Number.isFinite(b) || !Number.isFinite(c)) {
+            result.textContent = 'Please enter valid numbers.';
+            return;
+        }
 
         if (a === 0) {
             result.textContent = 'Coefficient a cannot be zero.';
